@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A clean, modern music player with glassmorphism design">
+  <title>Glass Music Player</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Music Player Card -->
+  <div class="player">
+    <!-- Album Art -->
+    <div class="album-container">
+      <img src="songs/Rajasaab.jpg" alt="Album artwork" class="album-art" id="albumArt">
+    </div>
+
+    <!-- Track Information -->
+    <div class="track-info">
+      <h1 class="track-title" id="trackTitle">Rebel Saab</h1>
+      <p class="track-artist" id="trackArtist">Raaja Saab</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="time-display">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <!-- Playback Controls -->
+    <div class="controls">
+      <!-- Previous Button -->
+      <button class="control-btn" id="prevBtn" aria-label="Previous track">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+        </svg>
+      </button>
+
+      <!-- Play/Pause Button -->
+      <button class="control-btn play-btn" id="playBtn" aria-label="Play">
+        <svg viewBox="0 0 24 24" id="playIcon">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      <!-- Next Button -->
+      <button class="control-btn" id="nextBtn" aria-label="Next track">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Volume Control -->
+    <div class="volume-container">
+      <div class="volume-icon" id="volumeIcon">
+        <svg viewBox="0 0 24 24" id="volumeSvg">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </div>
+      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80" aria-label="Volume">
+    </div>
+  </div>
+
+  <!-- Hidden Audio Element -->
+  <audio id="audio" preload="metadata"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

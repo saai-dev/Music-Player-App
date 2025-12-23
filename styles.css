@@ -1,0 +1,308 @@
+/* ========================================
+   GLASS MUSIC PLAYER - Styles
+   ======================================== */
+
+/* ========================================
+   CSS RESET & BASE STYLES
+======================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ========================================
+     BRAND CUSTOMIZATION
+     Adjust these values to match your brand
+  ======================================== */
+  
+  /* Background Colors - Change these to adjust the dark theme */
+  --bg-dark: #0a0a0f;
+  --bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+  
+  /* Glass Effect - Adjust for more/less transparency */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Accent Color - Your brand color! */
+  --accent: #00d4ff;
+  --accent-glow: rgba(0, 212, 255, 0.3);
+  /* Other accent examples:
+     Purple:  --accent: #a855f7; --accent-glow: rgba(168, 85, 247, 0.3);
+     Pink:    --accent: #ec4899; --accent-glow: rgba(236, 72, 153, 0.3);
+     Green:   --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.3);
+     Orange:  --accent: #f97316; --accent-glow: rgba(249, 115, 22, 0.3);
+  */
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  
+  /* Spacing */
+  --radius: 20px;
+  --radius-sm: 12px;
+  
+  /* Transitions */
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* Subtle background ambiance */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(120, 0, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ========================================
+   MUSIC PLAYER CARD
+======================================== */
+.player {
+  width: 100%;
+  max-width: 360px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition);
+}
+
+.player:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 60px var(--accent-glow);
+}
+
+/* ========================================
+   ALBUM ART
+======================================== */
+.album-container {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.album-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ========================================
+   TRACK INFO
+======================================== */
+.track-info {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.track-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   PROGRESS BAR
+======================================== */
+.progress-container {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-bar:hover {
+  height: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   CONTROLS
+======================================== */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  color: var(--text-primary);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.control-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.play-btn {
+  background: var(--accent);
+  color: var(--bg-dark);
+  padding: 16px;
+}
+
+.play-btn:hover {
+  background: var(--accent);
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.play-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ========================================
+   VOLUME CONTROL
+======================================== */
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.volume-icon {
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.volume-icon:hover {
+  color: var(--text-primary);
+}
+
+.volume-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.volume-slider {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 400px) {
+  .player {
+    padding: 20px;
+  }
+
+  .track-title {
+    font-size: 1.125rem;
+  }
+
+  .control-btn {
+    padding: 10px;
+  }
+
+  .play-btn {
+    padding: 14px;
+  }
+}
