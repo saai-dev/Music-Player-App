@@ -41,6 +41,12 @@ const playlist = [
     src: "songs/Rebel_Saab.mp3"
   },
   {
+    title: "Sahana Sahana",
+    artist: "Raaja Saab",
+    album: "songs/Rajasaab.jpg",
+    src: "songs/Sahana_Sahana.mp3"
+  },
+  {
     title: "Pattuma",
     artist: "Love Insurance Kompany",
     album: "songs/LIK.jpg",
@@ -69,7 +75,37 @@ const playlist = [
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
     src: "songs/Ishq_Jalakar.mp3"
-  }
+  },
+  {
+    title: "Balochi Arabic",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Balochi_Arabic.mp3"
+  },
+  {
+    title: "Ez Ez",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Ez_Ez.mp3"
+  },
+  {
+    title: "Lutt Le Gaya",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Lutt_Le_Gaya.mp3"
+  },
+  {
+    title: "Naal Nachna",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Naal_Nachna.mp3"
+  },
+  {
+    title: "Run Down The City",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Run_Down_The_City_Monica.mp3"
+  },
 ];
 
 // ========================================
