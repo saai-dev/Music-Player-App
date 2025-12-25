@@ -38,74 +38,106 @@ const playlist = [
     title: "Rebel Saab",
     artist: "Raaja Saab",
     album: "songs/Rajasaab.jpg",
-    src: "songs/Rebel_Saab.mp3"
+    src: "songs/Rebel_Saab.mp3",
+    bgColor1: "#1995d7ff",
+    bgColor2: "#011026ff"
   },
   {
     title: "Sahana Sahana",
     artist: "Raaja Saab",
     album: "songs/Rajasaab.jpg",
-    src: "songs/Sahana_Sahana.mp3"
+    src: "songs/Sahana_Sahana.mp3",
+    bgColor1: "#1995d7ff",
+    bgColor2: "#011026ff"
   },
   {
     title: "Pattuma",
     artist: "Love Insurance Kompany",
     album: "songs/LIK.jpg",
-    src: "songs/Pattuma.mp3"
+    src: "songs/Pattuma.mp3",
+    bgColor1: "#2d1b4e",
+    bgColor2: "#0a0512"
   },
   {
     title: "Dheema",
     artist: "Love Insurance Kompany",
     album: "songs/LIK.jpg",
-    src: "songs/Dheema.mp3"
+    src: "songs/Dheema.mp3",
+    bgColor1: "#2d1b4e",
+    bgColor2: "#0a0512"
   },
   {
     title: "Nuvvunte Chaley",
     artist: "Andhra King Taluka",
     album: "songs/andhra_king_taluka.jpg",
-    src: "songs/Nuvvunte_Chaley.mp3"
+    src: "songs/Nuvvunte_Chaley.mp3",
+    bgColor1: "#1a3a5c",
+    bgColor2: "#0a1520"
   },
   {
     title: "Gehra Hua",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Gehra_Hua.mp3"
+    src: "songs/Gehra_Hua.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Ishq Jalakar",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Ishq_Jalakar.mp3"
+    src: "songs/Ishq_Jalakar.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
+  },
+  {
+    title: "Ishq Jalakar",
+    artist: "Dhurandhar",
+    album: "songs/Dhurandhar.jpeg",
+    src: "songs/Ishq_Jalakar.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Balochi Arabic",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Balochi_Arabic.mp3"
+    src: "songs/Balochi_Arabic.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Ez Ez",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Ez_Ez.mp3"
+    src: "songs/Ez_Ez.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Lutt Le Gaya",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Lutt_Le_Gaya.mp3"
+    src: "songs/Lutt_Le_Gaya.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Naal Nachna",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Naal_Nachna.mp3"
+    src: "songs/Naal_Nachna.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
   },
   {
     title: "Run Down The City",
     artist: "Dhurandhar",
     album: "songs/Dhurandhar.jpeg",
-    src: "songs/Run_Down_The_City_Monica.mp3"
-  },
+    src: "songs/Run_Down_The_City_Monica.mp3",
+    bgColor1: "#3533cd",
+    bgColor2: "#0a0a2e"
+  }
 ];
 
 // ========================================
@@ -118,6 +150,7 @@ const trackTitle = document.getElementById('trackTitle');
 const trackArtist = document.getElementById('trackArtist');
 const progressBar = document.getElementById('progressBar');
 const progressFill = document.getElementById('progressFill');
+const progressThumb = document.getElementById('progressThumb');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
 const playBtn = document.getElementById('playBtn');
@@ -127,6 +160,10 @@ const nextBtn = document.getElementById('nextBtn');
 const volumeSlider = document.getElementById('volumeSlider');
 const volumeIcon = document.getElementById('volumeIcon');
 const volumeSvg = document.getElementById('volumeSvg');
+const albumBtn = document.getElementById('albumBtn');
+const albumPanel = document.getElementById('albumPanel');
+const albumList = document.getElementById('albumList');
+const closePanelBtn = document.getElementById('closePanelBtn');
 
 // ========================================
 // STATE VARIABLES
@@ -184,8 +221,15 @@ function updateVolumeIcon() {
 }
 
 // ========================================
-// TRACK LOADING
+// BACKGROUND & TRACK LOADING
 // ========================================
+
+/**
+ * Update background based on album colors
+ */
+function updateBackground(track) {
+  document.body.style.background = `linear-gradient(135deg, ${track.bgColor1} 0%, ${track.bgColor2} 100%)`;
+}
 
 /**
  * Load a track by index
@@ -201,6 +245,9 @@ function loadTrack(index) {
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.artist;
   
+  // Update background
+  updateBackground(track);
+  
   // Reset progress
   progressFill.style.width = '0%';
   currentTimeEl.textContent = '0:00';
@@ -208,7 +255,88 @@ function loadTrack(index) {
   
   // Load the audio
   audio.load();
+  
+  // Update active state in album list
+  updateAlbumListActive();
 }
+
+// ========================================
+// ALBUM PANEL
+// ========================================
+
+/**
+ * Generate album list
+ */
+function generateAlbumList() {
+  // Group songs by album
+  const albums = {};
+  playlist.forEach((track, index) => {
+    if (!albums[track.album]) {
+      albums[track.album] = {
+        cover: track.album,
+        artist: track.artist,
+        songs: []
+      };
+    }
+    albums[track.album].songs.push({ ...track, index });
+  });
+  
+  albumList.innerHTML = '';
+  
+  Object.keys(albums).forEach(albumKey => {
+    const album = albums[albumKey];
+    const albumItem = document.createElement('div');
+    albumItem.className = 'album-item';
+    albumItem.innerHTML = `
+      <img src="${album.cover}" alt="Album cover" class="album-item-cover">
+      <div class="album-item-info">
+        <div class="album-item-artist">${album.artist}</div>
+        <div class="album-item-songs">${album.songs.length} song${album.songs.length > 1 ? 's' : ''}</div>
+      </div>
+    `;
+    
+    // Add song list
+    const songList = document.createElement('div');
+    songList.className = 'song-list';
+    album.songs.forEach(song => {
+      const songItem = document.createElement('div');
+      songItem.className = 'song-item';
+      songItem.dataset.index = song.index;
+      songItem.innerHTML = `<span class="song-title">${song.title}</span>`;
+      songItem.addEventListener('click', () => {
+        currentTrackIndex = song.index;
+        loadTrack(currentTrackIndex);
+        audio.play();
+        closeAlbumPanel();
+      });
+      songList.appendChild(songItem);
+    });
+    
+    albumItem.appendChild(songList);
+    albumList.appendChild(albumItem);
+  });
+}
+
+function updateAlbumListActive() {
+  document.querySelectorAll('.song-item').forEach(item => {
+    item.classList.toggle('active', parseInt(item.dataset.index) === currentTrackIndex);
+  });
+}
+
+function openAlbumPanel() {
+  albumPanel.classList.add('open');
+}
+
+function closeAlbumPanel() {
+  albumPanel.classList.remove('open');
+}
+
+// Album panel events
+albumBtn.addEventListener('click', openAlbumPanel);
+closePanelBtn.addEventListener('click', closeAlbumPanel);
+albumPanel.addEventListener('click', (e) => {
+  if (e.target === albumPanel) closeAlbumPanel();
+});
 
 // ========================================
 // PLAYBACK CONTROLS
@@ -299,14 +427,59 @@ playBtn.addEventListener('click', togglePlay);
 nextBtn.addEventListener('click', playNext);
 prevBtn.addEventListener('click', playPrevious);
 
-// Progress bar click to seek
-progressBar.addEventListener('click', seek);
+// Progress bar interaction with dot
+let progressTimeout;
+
+function updateProgressThumb(percent) {
+  progressThumb.style.left = `${percent}%`;
+}
+
+progressBar.addEventListener('mousedown', (e) => {
+  progressBar.classList.add('seeking');
+  seek(e);
+});
+
+progressBar.addEventListener('mousemove', (e) => {
+  if (e.buttons === 1) {
+    seek(e);
+  }
+});
+
+progressBar.addEventListener('mouseup', () => {
+  clearTimeout(progressTimeout);
+  progressTimeout = setTimeout(() => {
+    progressBar.classList.remove('seeking');
+  }, 1000);
+});
+
+progressBar.addEventListener('mouseleave', () => {
+  if (!progressBar.classList.contains('seeking')) return;
+  clearTimeout(progressTimeout);
+  progressTimeout = setTimeout(() => {
+    progressBar.classList.remove('seeking');
+  }, 1000);
+});
 
 // Volume slider
+let volumeTimeout;
 volumeSlider.addEventListener('input', () => {
   audio.volume = volumeSlider.value / 100;
   updateVolumeIcon();
+  updateVolumeSliderFill();
+  
+  // Show thumb while adjusting
+  volumeSlider.classList.add('adjusting');
+  clearTimeout(volumeTimeout);
+  volumeTimeout = setTimeout(() => {
+    volumeSlider.classList.remove('adjusting');
+  }, 1000);
 });
+
+// Update volume slider fill color
+function updateVolumeSliderFill() {
+  const percent = volumeSlider.value;
+  volumeSlider.style.background = `linear-gradient(to right, var(--accent) 0%, var(--accent) ${percent}%, rgba(255, 255, 255, 0.1) ${percent}%, rgba(255, 255, 255, 0.1) 100%)`;
+}
 
 // Volume icon click to mute/unmute
 volumeIcon.addEventListener('click', toggleMute);
@@ -323,7 +496,9 @@ audio.addEventListener('pause', () => {
 });
 
 audio.addEventListener('ended', () => {
-  playNext();
+  currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+  loadTrack(currentTrackIndex);
+  audio.play();
 });
 
 audio.addEventListener('loadedmetadata', () => {
@@ -334,6 +509,7 @@ audio.addEventListener('loadedmetadata', () => {
 audio.addEventListener('seeked', () => {
   const percent = (audio.currentTime / audio.duration) * 100;
   progressFill.style.width = `${percent}%`;
+  updateProgressThumb(percent);
   currentTimeEl.textContent = formatTime(audio.currentTime);
 });
 
@@ -341,6 +517,7 @@ audio.addEventListener('timeupdate', () => {
   // Update progress bar
   const percent = (audio.currentTime / audio.duration) * 100;
   progressFill.style.width = `${percent}%`;
+  updateProgressThumb(percent);
   
   // Update current time display
   currentTimeEl.textContent = formatTime(audio.currentTime);
@@ -384,6 +561,10 @@ document.addEventListener('keydown', (e) => {
 // Set initial volume
 audio.volume = volumeSlider.value / 100;
 updateVolumeIcon();
+updateVolumeSliderFill();
+
+// Generate album list
+generateAlbumList();
 
 // Load first track
 loadTrack(currentTrackIndex);
