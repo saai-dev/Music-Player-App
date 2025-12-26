@@ -53,7 +53,7 @@ const playlist = [
   {
     title: "Pattuma",
     artist: "Love Insurance Kompany",
-    album: "songs/LIK.jpg",
+    album: "songs/Lik.jpg",
     src: "songs/Pattuma.mp3",
     bgColor1: "#2d1b4e",
     bgColor2: "#0a0512"
@@ -61,7 +61,7 @@ const playlist = [
   {
     title: "Dheema",
     artist: "Love Insurance Kompany",
-    album: "songs/LIK.jpg",
+    album: "songs/Lik.jpg",
     src: "songs/Dheema.mp3",
     bgColor1: "#2d1b4e",
     bgColor2: "#0a0512"
